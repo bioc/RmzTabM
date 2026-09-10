@@ -44,7 +44,7 @@ test_that("mtdSkeleton works", {
     expect_error(mtdSkeleton(), "'id' is required")
     expect_error(mtdSkeleton(id = "1"), "'software' is required")
     expect_error(mtdSkeleton(id = "1", software = "Fancy software",
-                     mztab_profile = "Invalid"), "'mztab_profile' is invalid")
+                     mztab_profile = "Invalid"), "should be one of")
     res <- mtdSkeleton(id = "1", software = "Fancy software")
     expect_true(is.matrix(res))
     expect_true(is.character(res))

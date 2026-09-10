@@ -244,7 +244,7 @@ test_that("readMzTabM works", {
     ## SML section is present and is a matrix when SMH is in file
     f <- write_tmp(mtd_block, "\n", SML_block)
     res <- readMzTabM(f)
-    res_l <- as.list(res)
+    res_l <- as(res, "list")
     expect_true(!is.null(res_l[["SML"]]))
     expect_true(is.matrix(res_l[["SML"]]))
     expected_cols <- strsplit(SML_block[1], "\t")[[1]]

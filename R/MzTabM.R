@@ -307,6 +307,27 @@ setAs("MzTabM", "list", function(from, to) {
     if (r_mtd & !(profile %in% .PROFILES))
         msg <- c(msg, paste0("Profile '", profile, "' invalid. Please provide ",
                             "a valid set of parameter"))
+    ## Verify if profile match the section in the file
+    if (r_mtd & r_sml & !(profile %in% grep("S", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SML section defined but not present in ",
+                             "'mzTab-profile' field"))
+    if (r_mtd & !r_sml & (profile %in% grep("S", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SML section present in 'mzTab-profile' field ",
+                            "but section not defined"))
+    if (r_mtd & r_smf & !(profile %in% grep("F", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SMF section defined but not present in ",
+                             "'mzTab-profile' field"))
+    if (r_mtd & !r_smf & (profile %in% grep("F", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SMF section present in 'mzTab-profile' field ",
+                            "but section not defined"))
+    if (r_mtd & r_sme & !(profile %in% grep("E", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SME section defined but not present in ",
+                             "'mzTab-profile' field"))
+    if (r_mtd & !r_sme & (profile %in% grep("E", .PROFILES, value = TRUE)))
+        msg <- c(msg, paste0("SME section present in 'mzTab-profile' field ",
+                            "but section not defined"))
+
+
     msg
 }
 

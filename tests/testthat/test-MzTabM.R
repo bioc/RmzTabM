@@ -16,6 +16,18 @@ test_that("MzTabM class, constructor, show and validation works", {
     expect_match(res[2L], "SME section with 3 rows")
 
     a <- MzTabM()
+    a@mtd <- setMtdField(mtd(a), field = "mzTab-profile", value = "M+S+F+E",
+                            replace = TRUE)
+    expect_match(.mztab_validate_slots(a),
+                "SML section present|SMF section present|SME section present")
+    a <- MzTabM()
+    a@sml <- matrix(NA_character_, ncol = 8, nrow = 3)
+    a@smf <- matrix(NA_character_, ncol = 8, nrow = 3)
+    a@sme <- matrix(NA_character_, ncol = 8, nrow = 3)
+    expect_match(.mztab_validate_slots(a),
+                "SML section defined|SMF section defined|SME section defined")
+
+    a <- MzTabM()
     expect_s4_class(a, "MzTabM")
     res <- capture.output(show(a))
     expect_match(res[2L], "2.1.0-M")

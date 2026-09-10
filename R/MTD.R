@@ -394,6 +394,13 @@ mtdFields <- function(..., field_prefix = "") {
 #' @param mztab_version `character(1)` defining the mzTab-M version of the file.
 #'
 #' @param mztab_profile `character(1)` defining the mzTab-M profile of the file.
+#'     The available profiles are:
+#'     - `"M"`: Only Metadata
+#'     - `"M+S"`: Metadata + Small Molecule section ("SML")
+#'     - `"M+F"`: Metadata + Small Molecule Feature section ("SMF")
+#'     - `"M+S+F"`: Metadata + SML + SMF
+#'     - `"M+F+E"`: Metadata + SMF + Small Molecule Evidence section ("SME")
+#'     - `"M+S+F+E"`: Metadata + SML + SMF + SME
 #'
 #' @return two-column `character` `matrix` that should be expanded with
 #'     additional fields (such as *title*, *description* etc) and
@@ -485,14 +492,13 @@ mtdSkeleton <- function(id = character(),
                         small_molecule_feature_quantification_unit = "[PRIDE, PRIDE:0000330, Arbitrary quantification unit, ]",
                         small_molecule_identification_reliability = "[MS, MS:1002896, compound identification confidence level, ]",
                         mztab_version = "2.1.0-M",
-                        mztab_profile = "M") {
+                        mztab_profile = c("M", "M+S", "M+F", "M+S+F",
+                                          "M+F+E", "M+S+F+E")) {
     if (!length(id)) stop("Parameter 'id' is required", call. = FALSE)
     if (!length(software)) stop("Parameter 'software' is required", call.=FALSE)
     if (!isCvParameter(software))
         software <- paste0("[,,", software, ",]")
-    if (!(mztab_profile %in% .PROFILES))
-        stop("Parameter 'mztab_profile' is invalid. Please select a valid ",
-            "profile.", call. = FALSE)
+    mztab_profile <- match.arg(mztab_profile)
 
     sk <- rbind(
         c("mzTab-version", mztab_version),
