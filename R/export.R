@@ -32,7 +32,7 @@
 #'     comments will be written after the `MTD` section and before any other
 #'     section.
 #'
-#' @param validation `logical(1)` to run the validation on the exported file.
+#' @param validate `logical(1)` to run the validation on the exported file.
 #'     Default: `TRUE`.
 #'
 #' @importFrom utils write.table
@@ -91,11 +91,11 @@
 #' comments <- c("Test comment")
 #' results <- writeMzTabM(x, path = filepath, comments = comments)
 #'
-#' ## Run without the validation
-#' results <- writeMzTabM(x, path = filepath, validation = FALSE)
+#' ## Run without the validate
+#' results <- writeMzTabM(x, path = filepath, validate = FALSE)
 #'
 #' @export
-writeMzTabM <- function(x, path, comments = character(), validation = TRUE) {
+writeMzTabM <- function(x, path, comments = character(), validate = TRUE) {
     if(inherits(x, "MzTabM"))
         x <- as.list(x)
 
@@ -170,7 +170,7 @@ writeMzTabM <- function(x, path, comments = character(), validation = TRUE) {
     }
 
     ## Validate the mzTab-M file
-    if(validation){
+    if(validate){
         tryCatch({
             validation_res <- mzTabMValidator(path)
         }, error = function(e) {

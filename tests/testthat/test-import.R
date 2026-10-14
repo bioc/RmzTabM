@@ -262,7 +262,7 @@ test_that("readMzTabM works", {
     expect_error(suppressWarnings(readMzTabM(f)),
                 "not a supported mzTab-profile.")
     ## Test without validation. Still error but not from validator
-    expect_error(suppressWarnings(readMzTabM(f, validation = FALSE)),
+    expect_error(suppressWarnings(readMzTabM(f, validate = FALSE)),
                     "invalid class \"MzTabM\" object")
 
     ## SMF only

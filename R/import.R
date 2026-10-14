@@ -27,7 +27,7 @@
 #'
 #' @param path `character(1)` with the path to the mzTab-M file.
 #'
-#' @param validation `logical(1)` to run the validation on the file.
+#' @param validate `logical(1)` to run the validation on the file.
 #'     Default: `TRUE`.
 #'
 #' @param ... Additional arguments forwarded to every internal call to
@@ -59,11 +59,11 @@
 #' ## Read without validation
 #' result <- readMzTabM(system.file("example_mztabm","MTBLS8735_mtd_smf.mzTab",
 #'                                    package = "RmzTabM"),
-#'                      validation = FALSE)
+#'                      validate = FALSE)
 #' result
 #'
 #' @export
-readMzTabM <- function(path, validation = TRUE, ...) {
+readMzTabM <- function(path, validate = TRUE, ...) {
     if(!file.exists(path))
         stop("The file does not exist.")
 
@@ -80,7 +80,7 @@ readMzTabM <- function(path, validation = TRUE, ...) {
               for SMF section, which is required if SME section is present.")
 
     ## Validate input mzTab-M file
-    if (validation)
+    if (validate)
         validation_res <- mzTabMValidator(path)
 
     out <- list()

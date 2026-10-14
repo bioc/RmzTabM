@@ -5,7 +5,7 @@
 \alias{writeMzTabM}
 \title{Export a mzTab-M 2.1 file}
 \usage{
-writeMzTabM(x, path, comments = character(), validation = TRUE)
+writeMzTabM(x, path, comments = character(), validate = TRUE)
 }
 \arguments{
 \item{x}{\code{list} containing the mzTab-M data to be written.}
@@ -16,7 +16,7 @@ writeMzTabM(x, path, comments = character(), validation = TRUE)
 comments will be written after the \code{MTD} section and before any other
 section.}
 
-\item{validation}{\code{logical(1)} to run the validation on the exported file.
+\item{validate}{\code{logical(1)} to run the validation on the exported file.
 Default: \code{TRUE}.}
 }
 \value{
@@ -93,8 +93,8 @@ result <- writeMzTabM(x, path = filepath)
 comments <- c("Test comment")
 results <- writeMzTabM(x, path = filepath, comments = comments)
 
-## Run without the validation
-results <- writeMzTabM(x, path = filepath, validation = FALSE)
+## Run without the validate
+results <- writeMzTabM(x, path = filepath, validate = FALSE)
 
 }
 \author{

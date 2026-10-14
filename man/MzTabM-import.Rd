@@ -5,12 +5,12 @@
 \alias{readMzTabM}
 \title{Import a mzTab-M 2.1 file}
 \usage{
-readMzTabM(path, validation = TRUE, ...)
+readMzTabM(path, validate = TRUE, ...)
 }
 \arguments{
 \item{path}{\code{character(1)} with the path to the mzTab-M file.}
 
-\item{validation}{\code{logical(1)} to run the validation on the file.
+\item{validate}{\code{logical(1)} to run the validation on the file.
 Default: \code{TRUE}.}
 
 \item{...}{Additional arguments forwarded to every internal call to
@@ -65,7 +65,7 @@ result
 ## Read without validation
 result <- readMzTabM(system.file("example_mztabm","MTBLS8735_mtd_smf.mzTab",
                                    package = "RmzTabM"),
-                     validation = FALSE)
+                     validate = FALSE)
 result
 
 }
