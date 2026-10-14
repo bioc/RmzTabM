@@ -376,13 +376,13 @@ Now we have a complete mzTab-M content compiled and can proceed to export it.
 ### Export to an MTD+SMF mzTab-M file
 
 The `MzTabM` object, containing the MTD and SMF sections, is ready for export to
-an mzTab-M file. The `writeMzTabM()` function, following generation, the
-verifies the file using the *official* mzTab-M validator. The first time the
-function is called, the validator for the specific operating system is
-downloaded and locally cached (avoiding thus the need to download the validator
-again). The function requires therefore however an active internet
-connection. If internet connectivity is not available, the validation can be
-disabled by setting `validate = FALSE`.
+an mzTab-M file. The `writeMzTabM()` function, following generation, verifies
+the file using the *official* mzTab-M validator. The first time the function is
+called, the validator for the specific operating system is downloaded and
+locally cached (avoiding thus the need to download the validator again). The
+function requires therefore however an active internet connection. If internet
+connectivity is not available, the validation can be disabled by setting
+`validate = FALSE`.
 
 ```{r writemztabm}
 res <- writeMzTabM(mzt, path = file.path(tempdir(), "MTBLS8735_mtd_smf.mzTab"))
