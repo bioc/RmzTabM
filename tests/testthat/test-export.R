@@ -269,4 +269,11 @@ test_that("writeMzTabM works", {
     f <- file.path(tempdir(), "not_existing_dir_2/")
     x <- MzTabM(mtd = mtd_block)
     expect_no_error(writeMzTabM(x, path = f))
+
+    ## Test save without the validation
+    x <- MzTabM(mtd = mtd_block, sml = SML_only_block)
+    x@mtd[3, "value"] <- "M"
+    expect_error(suppressWarnings(writeMzTabM(x, path = f, validation = TRUE)))
+    expect_no_error(writeMzTabM(x, path = f, validation = FALSE))
+    expect_true(file.exists(f))
 })

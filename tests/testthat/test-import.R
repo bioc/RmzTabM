@@ -261,6 +261,9 @@ test_that("readMzTabM works", {
     f <- write_tmp(mtd_block, "\n", SML_block, "\n", SMF_block)
     expect_error(suppressWarnings(readMzTabM(f)),
                 "not a supported mzTab-profile.")
+    ## Test without validation. Still error but not from validator
+    expect_error(suppressWarnings(readMzTabM(f, validation = FALSE)),
+                    "invalid class \"MzTabM\" object")
 
     ## SMF only
     mtd_block[3] <- "MTD\tmzTab-profile\tM+F"
