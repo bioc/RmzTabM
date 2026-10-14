@@ -22,7 +22,8 @@ files in mzTab-M format. The functions can be re-used and integrated by other R
 packages to support import and export of their respective
 metabolomics/lipidomics result objects in this format.
 
-For a general overview of the mzTab-M format see [this figure](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/img/media/figure-mztab-sections.png).
+For a general overview of the mzTab-M format see
+[this figure](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/img/media/figure-mztab-sections.png).
 
 ![mzTab-M format](images/figure-mztab-sections.png)
 
@@ -63,7 +64,8 @@ developer-oriented, providing helper functions that can be re-used in other R
 packages to read and write from and to mzTab-M files.
 
 For a description of the mzTab-M format and the set of mandatory and optional
-fields refer to the official [format definition](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/mzTab_format_specification_2_1-M.adoc).
+fields refer to the official
+[format definition](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/mzTab_format_specification_2_1-M.adoc).
 
 ```{r load_package}
 library(RmzTabM)
@@ -376,9 +378,10 @@ Now we have a complete mzTab-M content compiled and can proceed to export it.
 The MzTabM object, containing the MTD and SMF sections, is ready for export to
 an mzTab-M file. Following generation, the file is verified using the mzTab-M
 validator. The validation report confirms that the file was generated
-successfully, returning only a single Info message. This message notes the
-absence of the SML section, which is expected given that we intentionally
-generated an MTD+SMF file.
+successfully, returning only two Info message. These message notes highlight the
+presence of the `small_molecule-quantification_unit` and `database` fields in
+the MTD section, noting that they are not necessary since the SML and SME
+sections are not present.
 
 ```{r writemztabm}
 writeMzTabM(mzt, path = file.path(tempdir(), "MTBLS8735_mtd_smf.mzTab"))
@@ -420,6 +423,21 @@ Differences in `rowData` and `colData` reflect that only fields present in the
 SMF and MTD sections are loaded and that column names follow the mzTab-M
 specification.
 
+### Validation of the mzTab-M file
+
+A mzTab-M file can be validated using the `validateMzTabM()` function. This
+function is the R interface to the
+[jmztabm-validator](https://github.com/lifs-tools/jmzTab-m) which is a tool that
+checks the compliance of mzTab-M files with the mzTab-M format specification.
+The validator checks for the presence of mandatory fields, the correct
+formatting of values, and the consistency of cross-references between sections.
+The functions `readMzTabM()` and `writeMzTabM()` automatically validate the
+mzTab-M file after reading or writing, respectively.
+
+```{r mztabm_validation}
+mzTabMValidator(file.path(tempdir(), "MTBLS8735_mtd_smf.mzTab"))
+```
+
 ## Low-level functions
 
 The low-level functions listed in this section provide the base functionality
@@ -440,7 +458,8 @@ The mzTab-M format defines various fields and parameters to describe the data
 and information of an experiment. The *RmzTabM* package provides a variety of
 utility functions that help defining and formatting this information.
 
-See also the [specification of the MTD section](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/mzTab_format_specification_2_1-M.adoc#62-metadata-section)
+See also the
+[specification of the MTD section](https://github.com/HUPO-PSI/mzTab-M/blob/main/specification_documents/mzTab_format_specification_2_1-M.adoc#62-metadata-section)
 for more information and optional and mandatory metadata fields.
 
 The general categories of the metadadata in the mzTab-M MTD section are
@@ -749,10 +768,10 @@ rownames(abundances) <- c("FT01", "FT02", "FT03", "FT04", "FT05",
 ```
 
 We next define also a `data.frame` with the feature characteristics from the MS
-measurement run (one row per feature and columns with *m/z*, retention time and,
-where known, also the adduct information and charge). Note that without any
-annotation (and hence a SML and SME section) adduct and charge information will
-not be available for the SMF table.
+measurement run (one row per feature and columns with *m/z*, retention time
+and, where known, also the adduct information and charge). Note that without
+any annotation (and hence a SML and SME section) adduct and charge information
+will not be available for the SMF table.
 
 ```{r feature_info}
 feature_info <- data.frame(
@@ -927,7 +946,7 @@ will be added as *optional* columns (prefixed with `"opt_"`)
 The function require the MTD section defined earlier to validate the
 `spectra_ref` reported in the SME section.
 
-```{r smeCreate}
+```{r smeCreate, results = "asis"}
 sme <- smeCreate(
     evidence_input_id = ev_df$evidence_input_id,
     exp_mass_to_charge = ev_df$exp_mass_to_charge,
