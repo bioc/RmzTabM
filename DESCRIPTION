@@ -1,6 +1,6 @@
 Package: RmzTabM
 Title: R API for the mzTab-M Reference Implementation
-Version: 0.99.4
+Version: 1.0.0
 Authors@R: c(
     person(given = "Nils",
            family = "Hoffmann",
